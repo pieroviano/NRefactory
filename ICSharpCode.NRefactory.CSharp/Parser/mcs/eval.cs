@@ -686,7 +686,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 			AssemblyBuilderAccess access;
 
 			if (Environment.GetEnvironmentVariable ("SAVE") != null) {
-				access = AssemblyBuilderAccess.RunAndSave;
+				access = AssemblyBuilderAccess.Run /* net10: RunAndSave removed */;
 				assembly = new AssemblyDefinitionDynamic (module, current_debug_name, current_debug_name);
 				assembly.Importer = importer;
 			} else {
@@ -786,7 +786,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 			if (host != null)
 				host.CloseContainer ();
 
-			if (access == AssemblyBuilderAccess.RunAndSave)
+			if (access == AssemblyBuilderAccess.Run /* net10: RunAndSave removed */)
 				assembly.Save ();
 
 			if (host == null)
