@@ -79,6 +79,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
 		public static MetadataTokenShim GetToken (this ConstructorBuilder builder) => new MetadataTokenShim (builder.MetadataToken);
 
+
+		// netstandard2.0's Reflection.Emit package exposes CreateTypeInfo() but not CreateType().
+		public static Type CreateType (this TypeBuilder builder) => builder.CreateTypeInfo ()?.AsType ();
+
 		// --- AppDomain-based assembly definition (removed; use the static factory) ---
 		public static AssemblyBuilder DefineDynamicAssembly (this AppDomain domain, AssemblyName name, AssemblyBuilderAccess access)
 			=> AssemblyBuilder.DefineDynamicAssembly (name, access);

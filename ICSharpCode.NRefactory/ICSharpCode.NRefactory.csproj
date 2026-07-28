@@ -1,9 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <!-- net10 migration: SDK-style, net10.0. Original preserved as *.net48bak. -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <AssemblyName>ICSharpCode.NRefactory</AssemblyName>
-    <RootNamespace>ICSharpCode.NRefactory</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\ICSharpCode.NRefactory.snk</AssemblyOriginatorKeyFile>
     <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
@@ -13,11 +10,16 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);CS0618;SYSLIB0011;SYSLIB0050;SYSLIB0051</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <!-- net10: System.Security.Permissions (CAS types) moved out of the runtime into this package. -->
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <!-- net10 migration: netstandard2.0 lacks the Reflection.Emit surface (ILGenerator/LocalBuilder/AssemblyBuilder). -->
+    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
   </ItemGroup>
 </Project>
